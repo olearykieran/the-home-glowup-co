@@ -5,6 +5,8 @@ import { db } from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
 import Image from "next/image";
 import Link from "next/link";
+import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
+import { SiTiktok } from "react-icons/si"; // Importing TikTok icon
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -16,15 +18,17 @@ export default function Home() {
     message: "",
   });
 
-  const handleChange = (e) => {
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await addDoc(collection(db, "contacts"), formData);
-      console.log("Document successfully written!");
+
       setFormData({
         firstName: "",
         lastName: "",
@@ -33,6 +37,8 @@ export default function Home() {
         zipCode: "",
         message: "",
       });
+      setSuccessMessage("Thank you! Your message has been successfully sent.");
+      setTimeout(() => setSuccessMessage(""), 5000); // Clear the message after 5 seconds
     } catch (error) {
       console.error("Error writing document: ", error);
     }
@@ -58,8 +64,8 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex flex-col items-center justify-center bg-primary min-h-screen px-4">
-      <div className="relative w-full h-[750px] mt-8 overflow-hidden">
+    <main className="flex flex-col items-center justify-center bg-primary min-h-screen px-0">
+      <div className="relative w-full h-[600px] overflow-hidden">
         <Image
           src="/kitchen.jpeg"
           alt="Kitchen Tile Image"
@@ -68,7 +74,7 @@ export default function Home() {
           className="absolute inset-0"
         />
         <div className="absolute inset-0 flex items-center justify-start fade-in-section opacity-0 transition-opacity duration-1000 p-24">
-          <div className="bg-quart bg-opacity-70 p-16 text-left max-w-[50%]">
+          <div className="bg-quart rounded-md bg-opacity-70 p-16 text-left max-w-[50%]">
             <p className="text-5xl text-tertiary montserrat-regular">
               Elegant Transformations for Kitchens, Bathrooms, and Beyond.
             </p>
@@ -93,10 +99,10 @@ export default function Home() {
             <p className="text-lg text-tertiary montserrat-regular mb-8">
               As a special touch, we always leave you with a handmade GlowUp&trade;
               candle, a small token of our appreciation and a reminder of our dedication
-              to your home's new glow.
+              to your home&apos;s new glow.
             </p>
             <Link href="/about-us" passHref>
-              <div className="text-lg bg-primary text-tertiary py-2 px-6 rounded montserrat-regular hover:bg-tertiary hover:text-quart transition-colors cursor-pointer">
+              <div className="text-lg rounded-md bg-primary text-tertiary py-2 px-6 rounded montserrat-regular hover:bg-tertiary hover:text-quart transition-colors cursor-pointer">
                 Read More
               </div>
             </Link>
@@ -130,9 +136,9 @@ export default function Home() {
                 className="rounded-lg"
               />
               <p className="text-xl text-tertiary font-semibold mt-4">Refresh </p>
-              <p className="text-md m-2  text-center text-tertiary">
-                We'll bring your old tiles back to life with our one-of-a-kind cleaning,
-                resealing and staining process.
+              <p className="text-md m-2 text-center text-tertiary">
+                We&apos;ll bring your old tiles back to life with our one-of-a-kind
+                cleaning, resealing and staining process.
               </p>
             </div>
             <div className="flex flex-col items-center">
@@ -159,8 +165,8 @@ export default function Home() {
               />
               <p className="text-xl text-tertiary font-semibold mt-4">Repair</p>
               <p className="text-md m-2 text-center text-tertiary">
-                We'll repair and restore your cabinets and trim, ensuring they are free
-                from damage and look as good as new.
+                We&apos;ll repair and restore your cabinets and trim, ensuring they are
+                free from damage and look as good as new.
               </p>
             </div>
             <div className="flex flex-col items-center">
@@ -180,7 +186,7 @@ export default function Home() {
           </div>
           <div className="mt-12 text-center">
             <Link href="/services" passHref>
-              <div className="text-lg bg-primary text-tertiary py-2 px-6 rounded montserrat-regular hover:bg-tertiary hover:text-quart  transition-colors cursor-pointer">
+              <div className="text-lg rounded-md bg-primary text-tertiary py-2 px-6 montserrat-regular hover:bg-tertiary hover:text-quart transition-colors cursor-pointer">
                 View All Services
               </div>
             </Link>
@@ -226,11 +232,16 @@ export default function Home() {
         </div>
       </section>
       {/* Contact Us Section */}
-      <section className="w-full bg-tertiary py-16">
+      <section id="contact" className="w-full bg-tertiary py-16">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-4xl font-bold montserrat-alternates-regular text-quart text-left mb-12">
             Contact Us
           </h2>
+          {successMessage && (
+            <div className="bg-cinco text-tertiary p-4 rounded mb-4">
+              {successMessage}
+            </div>
+          )}
           <div className="flex flex-col md:flex-row md:justify-between montserrat-alternates-regular items-center bg-quart p-8 rounded-lg shadow-lg">
             <div className="md:w-1/2 mb-4 md:mb-0">
               <Image
@@ -313,7 +324,7 @@ export default function Home() {
                   required
                 ></textarea>
                 <button
-                  className="col-span-2 bg-primary text-tertiary p-2 rounded-lg hover:bg-tertiary transition-colors"
+                  className="col-span-2 bg-primary text-tertiary p-2 rounded-md hover:bg-tertiary hover:text-secondary transition-colors"
                   type="submit"
                 >
                   Submit

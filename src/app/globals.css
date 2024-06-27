@@ -23,6 +23,25 @@ body {
   font-family: "Montserrat Alternates", sans-serif;
 }
 
+/* Add styles for h2 and h3 elements */
+h2 {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 700; /* Bold */
+  font-size: 2.25rem; /* 36px */
+  line-height: 1.25; /* Adjust line-height as needed */
+  color: #2c3e50; /* Adjust color as needed */
+  margin-bottom: 1rem; /* Adjust margin as needed */
+}
+
+h3 {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 600; /* Semi-bold */
+  font-size: 1.875rem; /* 30px */
+  line-height: 1.25; /* Adjust line-height as needed */
+  color: #34495e; /* Adjust color as needed */
+  margin-bottom: 0.75rem; /* Adjust margin as needed */
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -181,4 +200,57 @@ body {
 
 .group-hover:opacity-100 {
   transition: opacity 0.5s ease-in-out;
+}
+
+/* Custom Swiper styles */
+.customSwiper .swiper-button-next,
+.customSwiper .swiper-button-prev {
+  color: #fac1b4; /* Custom arrow color */
+}
+
+.customSwiper .swiper-pagination-bullet-active {
+  background-color: #fac1b4; /* Custom active pagination bullet color */
+}
+
+.swiperSlide {
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Slide-in animations */
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition:
+    transform 1s ease-in-out,
+    opacity 1s ease-in-out;
+}
+
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(100%);
+  transition:
+    transform 1s ease-in-out,
+    opacity 1s ease-in-out;
+}
+
+.slide-in-left.fade-in {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.slide-in-right.fade-in {
+  transform: translateX(0);
+  opacity: 1;
 }
