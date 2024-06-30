@@ -1,11 +1,21 @@
+// /src/app/shop/candles/page.tsx
 "use client";
 
-// Candles.js
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useCart } from "../../shopping-cart/CartContext";
+import SuccessMessage from "../../components/Success";
+
+interface Candle {
+  id: number;
+  name: string;
+  image: string;
+  price: number;
+}
 
 export default function Candles() {
+  const [successMessage, setSuccessMessage] = useState("");
+
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -26,7 +36,7 @@ export default function Candles() {
 
   const { addToCart } = useCart();
 
-  const candles = [
+  const candles: Candle[] = [
     { id: 1, name: "Clove & Ylang Ylang Candle", image: "/candle.jpg", price: 5.0 },
     {
       id: 2,
@@ -34,11 +44,22 @@ export default function Candles() {
       image: "/candle.jpg",
       price: 5.0,
     },
-    // Add more candles as needed
   ];
+
+  const handleAddToCart = (candle: Candle) => {
+    console.log("Adding to cart:", candle);
+    addToCart(candle);
+    setSuccessMessage(`Added ${candle.name} to cart!`);
+
+    // Remove the success message after 3 seconds
+    setTimeout(() => {
+      setSuccessMessage("");
+    }, 3000);
+  };
 
   return (
     <main className="bg-white min-h-screen py-16 px-8">
+      {successMessage && <SuccessMessage message={successMessage} />}
       <section className="w-full py-16 px-8 text-center">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-tertiary montserrat-alternates-regular mb-8">
@@ -65,7 +86,7 @@ export default function Candles() {
                   ${candle.price}
                 </div>
                 <button
-                  onClick={() => addToCart(candle)}
+                  onClick={() => handleAddToCart(candle)}
                   className="bg-primary text-tertiary py-2 px-4 rounded-md hover:bg-tertiary hover:text-primary transition-colors mt-2"
                 >
                   Add to Cart

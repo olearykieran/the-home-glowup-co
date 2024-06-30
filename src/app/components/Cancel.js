@@ -1,4 +1,4 @@
-// pages/cancel.js
+// src/app/components/Cancel.js
 export default function Cancel() {
   return (
     <div>

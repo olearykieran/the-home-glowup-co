@@ -39,13 +39,13 @@ export default function AboutUs() {
               Our Story
             </h2>
             <p className="text-lg text-tertiary montserrat-regular">
-              Prices are too high for a full remodel, but a basic cleaning won't get the
-              job done. If you want to make your preexisting home look like it's brand
-              new, we are the ones to call. After working in the residential construction
-              industry for several years, we realized that many Long Island families have
-              the need and desire to renovate but the prices are just too unreasonable. We
-              offer various solutions to keep the price at a fraction of the cost that a
-              general contractor would charge for a full remodel.
+              Prices are too high for a full remodel, but a basic cleaning won&apos;t get
+              the job done. If you want to make your preexisting home look like it&apos;s
+              brand new, we are the ones to call. After working in the residential
+              construction industry for several years, we realized that many Long Island
+              families have the need and desire to renovate but the prices are just too
+              unreasonable. We offer various solutions to keep the price at a fraction of
+              the cost that a general contractor would charge for a full remodel.
             </p>
           </div>
         </div>
@@ -71,7 +71,7 @@ export default function AboutUs() {
                   />
                 </div>
                 <h3 className="text-2xl font-semibold text-tertiary montserrat-alternates-regular">
-                  Denis Patrick O'Leary
+                  Denis Patrick O&apos;Leary
                 </h3>
                 <h2 className="text-xl font-semibold text-tertiary montserrat-alternates-regular">
                   Co-Founder & CEO
@@ -79,7 +79,7 @@ export default function AboutUs() {
               </div>
               <p className="text-md text-tertiary montserrat-regular mt-4">
                 Denis is a seasoned residential contractor with years of experience on the
-                South Shore of Long Island. As the founder of O'Home Services, he has
+                South Shore of Long Island. As the founder of O&apos;Home Services, he has
                 dedicated himself to serving the local community through renovations,
                 demolition, and new builds. Denis brings a unique combination of strength
                 and expertise to every job, no matter the size. Recognizing the high
@@ -104,7 +104,7 @@ export default function AboutUs() {
                   />
                 </div>
                 <h3 className="text-2xl font-semibold text-tertiary montserrat-alternates-regular">
-                  Kieran James O'Leary
+                  Kieran James O&apos;Leary
                 </h3>
                 <h2 className="text-xl font-semibold text-tertiary montserrat-alternates-regular">
                   Co-Founder & CTO

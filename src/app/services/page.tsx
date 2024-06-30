@@ -77,20 +77,19 @@ export default function Services() {
       parseFloat(trim)
     ).toFixed(2);
 
-    setTileCost(tile);
-    setFloorCost(floor);
-    setCabinetCost(cabinet);
-    setTrimCost(trim);
-
-    setTotalCost(total);
-    setFullReplacementCost(totalReplacementCost);
-    setSavings((totalReplacementCost - total).toFixed(2));
-
-    // Setting full Replacement costs only when calculate button is clicked
-    setTileFullReplacement(tileReplacementCost.toFixed(2));
-    setFloorFullReplacement(floorReplacementCost.toFixed(2));
-    setCabinetFullReplacement(cabinetReplacementCost.toFixed(2));
-    setTrimFullReplacement(trimReplacementCost.toFixed(2));
+    setTileCost(parseFloat(tile));
+    setFloorCost(parseFloat(floor));
+    setCabinetCost(parseFloat(cabinet));
+    setTrimCost(parseFloat(trim));
+    setTotalCost(parseFloat(total));
+    setFullReplacementCost(parseFloat(totalReplacementCost));
+    setSavings(
+      parseFloat((parseFloat(totalReplacementCost) - parseFloat(total)).toFixed(2))
+    );
+    setTileFullReplacement(parseFloat(tileReplacementCost.toFixed(2)));
+    setFloorFullReplacement(parseFloat(floorReplacementCost.toFixed(2)));
+    setCabinetFullReplacement(parseFloat(cabinetReplacementCost.toFixed(2)));
+    setTrimFullReplacement(parseFloat(trimReplacementCost.toFixed(2)));
   };
 
   return (
@@ -238,7 +237,13 @@ export default function Services() {
   );
 }
 
-function ServiceCard({ title, image, description }) {
+interface ServiceCardProps {
+  title: string;
+  image: string;
+  description: string;
+}
+
+function ServiceCard({ title, image, description }: ServiceCardProps) {
   return (
     <div className="flex flex-wrap items-center fade-in-section opacity-0 transition-opacity duration-1000">
       <div className="w-full md:w-1/2">

@@ -1,27 +1,57 @@
+// /src/app/Layout.js
 "use client";
 
-import { useState } from "react";
+import { ReactNode, useState, useEffect } from "react";
 import "./globals.css";
 import Image from "next/image";
 import {
   FaFacebookF,
   FaTwitter,
   FaInstagram,
-  FaHome,
-  FaInfoCircle,
-  FaConciergeBell,
   FaShoppingCart,
-  FaPhotoVideo,
   FaEnvelope,
+  FaConciergeBell,
+  FaInfoCircle,
+  FaHome,
+  FaPhotoVideo,
 } from "react-icons/fa";
 import { SiTiktok } from "react-icons/si";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import { CartProvider } from "./shopping-cart/CartContext";
-import { useRouter } from "next/navigation"; // Import useRouter from next/navigation
+import { CartProvider, useCart } from "./shopping-cart/CartContext";
+import { useRouter } from "next/navigation";
 
-export default function RootLayout({ children }) {
+interface RootLayoutProps {
+  children: ReactNode;
+}
+
+function CartIcon() {
+  const { cart } = useCart();
+  const router = useRouter();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
+
+  return (
+    <div className="relative">
+      <button onClick={() => router.push("/cart")} className="text-2xl text-tertiary">
+        <FaShoppingCart />
+      </button>
+      {cart.length > 0 && (
+        <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+          {cart.length}
+        </span>
+      )}
+    </div>
+  );
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const router = useRouter(); // Initialize router
+  const router = useRouter();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -29,7 +59,7 @@ export default function RootLayout({ children }) {
 
   const handleContactClick = () => {
     router.push("/#contact");
-    setMenuOpen(false); // Close menu after clicking
+    setMenuOpen(false);
   };
 
   return (
@@ -37,18 +67,29 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <body className="bg-cinco">
           <header className="relative flex justify-between items-center mt-6 px-8 py-4">
-            <div className="flex items-center">
+            <div className="flex items-center space-x-4">
               <button onClick={toggleMenu} className="text-2xl text-tertiary">
                 {menuOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
               </button>
+              <div className="relative" style={{ top: "3px" }}>
+                {" "}
+                {/* Adjust top value as needed */}
+                <CartIcon />
+              </div>
             </div>
             <div className="absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center">
-              <Image src="/flame-2.png" alt="Logo" width={30} height={30} />
+              <Image
+                src="/flame-2.png"
+                alt="Logo"
+                width={30}
+                height={30}
+                style={{ width: "auto", height: "auto" }}
+              />
               <div className="text-xl mt-2 text-tertiary montserrat-alternates-thin">
                 The Home GlowUp Co.
               </div>
             </div>
-            <div className="flex space-x-4">
+            <div className="flex items-center space-x-4">
               <a
                 href="https://facebook.com"
                 target="_blank"
@@ -142,7 +183,7 @@ export default function RootLayout({ children }) {
               </a>
             </nav>
           </div>
-          <main className="flex-grow bg-white mt-6">{children}</main>
+          <main className="flex-grow bg-white mt-6 min-h-screen">{children}</main>
           <footer className="bg-cinco text-tertiary py-8">
             <div className="max-w-6xl mx-auto text-center">
               <div className="flex flex-col items-center">

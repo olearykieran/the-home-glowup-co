@@ -1,30 +1,48 @@
-// CartContext.js
-import { createContext, useContext, useReducer } from "react";
+// /src/app/shopping-cart/CartContext.js
+"use client";
+import { createContext, useContext, useState, useCallback, useEffect } from "react";
 
 const CartContext = createContext();
 
-const cartReducer = (state, action) => {
-  switch (action.type) {
-    case "ADD_TO_CART":
-      return [...state, action.payload];
-    case "REMOVE_FROM_CART":
-      return state.filter((item) => item.id !== action.payload.id);
-    default:
-      return state;
-  }
-};
+export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-  const [cart, dispatch] = useReducer(cartReducer, []);
+  const [cart, setCart] = useState(() => {
+    if (typeof window !== "undefined") {
+      const savedCart = localStorage.getItem("cart");
+      return savedCart ? JSON.parse(savedCart) : [];
+    }
+    return [];
+  });
 
-  const addToCart = (item) => dispatch({ type: "ADD_TO_CART", payload: item });
-  const removeFromCart = (item) => dispatch({ type: "REMOVE_FROM_CART", payload: item });
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }, [cart]);
+
+  const addToCart = useCallback((item) => {
+    setCart((prevCart) => {
+      const newCart = [...prevCart, { ...item, id: Date.now() }];
+      return newCart;
+    });
+  }, []);
+
+  const removeFromCart = useCallback((item) => {
+    setCart((prevCart) => {
+      const newCart = prevCart.filter((cartItem) => cartItem.id !== item.id);
+      return newCart;
+    });
+  }, []);
+
+  const clearCart = useCallback(() => {
+    setCart([]);
+    localStorage.removeItem("cart");
+  }, []);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );
 };
-
-export const useCart = () => useContext(CartContext);
