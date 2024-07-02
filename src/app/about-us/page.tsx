@@ -90,10 +90,10 @@ function WhoWeAreSection() {
   return (
     <section className="w-full bg-quart py-24 px-8 text-center">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold text-tertiary montserrat-alternates-regular mb-8">
+        <h2 className="text-4xl font-bold text-tertiary montserrat-alternates-regular  mb-8">
           Who We Are
         </h2>
-        <div className="flex flex-wrap justify-center md:justify-between items-start md:items-stretch">
+        <div className="flex flex-wrap justify-center md:justify-between items-end md:items-stretch">
           <TeamMember
             name="Denis Patrick O'Leary"
             title="Co-Founder & CEO"
@@ -142,24 +142,38 @@ interface TeamMemberProps {
 function TeamMember({ name, title, imageSrc, description, reverse }: TeamMemberProps) {
   return (
     <div
-      className={`flex flex-col items-${reverse ? "start" : "end"} w-full md:w-1/2 text-${
-        reverse ? "left" : "right"
-      } md:${reverse ? "pl" : "pr"}-8 fade-in-section slide-in-${
+      className={`flex flex-col ${
+        reverse ? "items-start" : "items-end"
+      } w-full md:w-1/2 ${reverse ? "md:pl-8" : "md:pr-8"} fade-in-section slide-in-${
         reverse ? "right" : "left"
       }`}
     >
-      <div className={`flex flex-col items-${reverse ? "start" : "end"}`}>
+      <div className={`flex flex-col ${reverse ? "items-start" : "items-end"}`}>
         <div className="relative w-48 h-48 mb-4">
           <Image src={imageSrc} alt={name} fill className="object-cover rounded-full" />
         </div>
-        <h3 className="text-2xl font-semibold text-tertiary montserrat-alternates-regular">
+        <h3
+          className={`text-2xl font-semibold text-tertiary montserrat-alternates-regular ${
+            reverse ? "text-left" : "text-right"
+          }`}
+        >
           {name}
         </h3>
-        <h2 className="text-xl font-semibold text-tertiary montserrat-alternates-regular">
+        <h2
+          className={`text-xl font-semibold text-tertiary montserrat-alternates-regular ${
+            reverse ? "text-left" : "text-right"
+          }`}
+        >
           {title}
         </h2>
       </div>
-      <p className="text-md text-tertiary montserrat-regular mt-4">{description}</p>
+      <p
+        className={`text-md text-tertiary montserrat-regular mt-4 ${
+          reverse ? "text-left" : "text-right"
+        }`}
+      >
+        {description}
+      </p>
     </div>
   );
 }
