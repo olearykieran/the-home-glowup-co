@@ -25,27 +25,27 @@ export default function AboutUs() {
 
   return (
     <main className="flex flex-col items-center justify-center bg-primary min-h-screen px-0">
-      <div className="relative w-full h-[600px] overflow-hidden">
+      <div className="relative w-full h-[600px] overflow-hidden bg-gray-200">
         <Image
           src="/nice-kitchen.jpg" // Placeholder for the recommended image
           alt="Our Story Image"
-          layout="fill"
-          objectFit="cover"
-          className="absolute inset-0"
+          fill
+          priority
+          className="object-cover absolute inset-0"
         />
         <div className="absolute inset-0 flex items-center justify-start fade-in-section opacity-0 transition-opacity duration-1000 p-24">
           <div className="bg-quart rounded-md bg-opacity-80 p-16 text-left max-w-[50%]">
-            <h2 className="text-4xl font-bold text-tertiary montserrat-alternates-regular mb-4">
-              Our Story
+            <h2 className="text-4xl font-bold text-tertiary montserrat-regular mb-4">
+              Our Mission
             </h2>
             <p className="text-lg text-tertiary montserrat-regular">
-              Prices are too high for a full remodel, but a basic cleaning won&apos;t get
-              the job done. If you want to make your preexisting home look like it&apos;s
-              brand new, we are the ones to call. After working in the residential
-              construction industry for several years, we realized that many Long Island
-              families have the need and desire to renovate but the prices are just too
-              unreasonable. We offer various solutions to keep the price at a fraction of
-              the cost that a general contractor would charge for a full remodel.
+              High costs shouldn&apos;t prevent you from making your home look brand new.
+              With years of experience in residential construction, we understand that
+              many Long Island families desire renovations but find full remodel prices
+              prohibitive. We offer a range of cost-effective solutions, providing
+              stunning transformations at a fraction of what a general contractor would
+              charge. Let us elevate your home&apos;s elegance without the hefty price
+              tag.
             </p>
           </div>
         </div>
@@ -65,9 +65,8 @@ export default function AboutUs() {
                   <Image
                     src="/den.jpg" // Replace with Denis' image path
                     alt="Denis O'Leary"
-                    layout="fill"
-                    objectFit="cover"
-                    className="rounded-full"
+                    fill
+                    className="object-cover rounded-full"
                   />
                 </div>
                 <h3 className="text-2xl font-semibold text-tertiary montserrat-alternates-regular">
@@ -97,10 +96,9 @@ export default function AboutUs() {
                 <div className="relative justify-start w-48 h-48 mb-4">
                   <Image
                     src="/kier.jpg" // Replace with Kieran's image path
+                    fill
+                    className="object-cover rounded-full"
                     alt="Kieran O'Leary"
-                    layout="fill"
-                    objectFit="cover"
-                    className="rounded-full"
                   />
                 </div>
                 <h3 className="text-2xl font-semibold text-tertiary montserrat-alternates-regular">

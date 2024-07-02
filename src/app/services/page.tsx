@@ -42,7 +42,6 @@ export default function Services() {
   const [trimFullReplacement, setTrimFullReplacement] = useState(0);
 
   const handleCalculate = () => {
-    // Check for empty or invalid values
     if (
       isNaN(tileSquareFootage) ||
       isNaN(floorSquareFootage) ||
@@ -53,10 +52,10 @@ export default function Services() {
       return;
     }
 
-    const tileReplacementCost = tileSquareFootage * 35;
-    const floorReplacementCost = floorSquareFootage * 35;
-    const cabinetReplacementCost = cabinetUnits * 300; // assuming each cabinet unit is $500
-    const trimReplacementCost = trimFeet * 15; // assuming each foot of trim is $10
+    const tileReplacementCost = tileSquareFootage * 40;
+    const floorReplacementCost = floorSquareFootage * 15;
+    const cabinetReplacementCost = cabinetUnits * 1100;
+    const trimReplacementCost = trimFeet * 12.5;
 
     const totalReplacementCost = (
       tileReplacementCost +
@@ -66,9 +65,9 @@ export default function Services() {
     ).toFixed(2);
 
     const tile = (tileReplacementCost * 0.55).toFixed(2);
-    const floor = (floorReplacementCost * 0.55).toFixed(2);
-    const cabinet = (cabinetReplacementCost * 0.55).toFixed(2);
-    const trim = (trimReplacementCost * 0.55).toFixed(2);
+    const floor = (floorReplacementCost * 0.34).toFixed(2);
+    const cabinet = (cabinetReplacementCost * 0.35).toFixed(2);
+    const trim = (trimReplacementCost * 0.5).toFixed(2);
 
     const total = (
       parseFloat(tile) +
@@ -94,33 +93,36 @@ export default function Services() {
 
   return (
     <main className="flex flex-col items-center justify-center bg-primary min-h-screen px-0">
-      <div className="relative w-full h-[600px] overflow-hidden">
+      {/* Hero Section */}
+      <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden bg-gray-200">
         <Image
-          src="/nice-kitchen-2.png" // Replace with your image path
+          src="/nice-kitchen-2.png"
           alt="Our Services Image"
-          layout="fill"
-          objectFit="cover"
-          className="absolute inset-0"
+          fill
+          priority
+          className="object-cover absolute inset-0"
         />
-        <div className="absolute inset-0 flex items-center justify-start fade-in-section opacity-0 transition-opacity duration-1000 p-24">
-          <div className="bg-quart rounded-md bg-opacity-70 p-16 text-left max-w-[50%]">
-            <p className="text-5xl text-tertiary montserrat-regular">
+        <div className="absolute inset-0 flex items-center justify-start fade-in-section opacity-0 transition-opacity duration-1000 p-4 sm:p-8 md:p-16 lg:p-24">
+          <div className="bg-quart rounded-md bg-opacity-70 p-4 sm:p-8 md:p-12 lg:p-16 text-left w-full sm:w-3/4 md:w-2/3 lg:max-w-[50%]">
+            <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-tertiary montserrat-regular">
               Our Comprehensive Home Services
             </p>
           </div>
         </div>
       </div>
 
-      <section className="w-full bg-white text-tertiary py-24 px-8">
-        <div className="max-w-6xl mx-auto flex flex-col space-y-16">
+      <section className="w-full bg-white text-tertiary py-12 sm:py-16 md:py-24 px-4 sm:px-8">
+        <div className="max-w-6xl mx-auto flex flex-col space-y-12 sm:space-y-16">
           {/* Calculator Section */}
-          <div className="flex flex-col items-center bg-quart p-8 rounded-md shadow-md">
-            <h2 className="text-3xl font-bold text-tertiary montserrat-alternates-regular mb-4">
+          <div className="flex flex-col items-center bg-quart p-4 sm:p-8 rounded-md shadow-md">
+            <h2 className="text-2xl sm:text-3xl font-bold text-tertiary montserrat-alternates-regular mb-4 text-center">
               GlowUp vs Traditional Renovation Cost Calculator
             </h2>
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
-                <label className="block text-lg mb-2">Tile Square Footage</label>
+                <label className="block text-base sm:text-lg mb-2">
+                  Tile Square Footage
+                </label>
                 <input
                   type="number"
                   value={tileSquareFootage}
@@ -130,7 +132,9 @@ export default function Services() {
                 />
               </div>
               <div>
-                <label className="block text-lg mb-2">Floor Square Footage</label>
+                <label className="block text-base sm:text-lg mb-2">
+                  Floor Square Footage
+                </label>
                 <input
                   type="number"
                   value={floorSquareFootage}
@@ -140,7 +144,9 @@ export default function Services() {
                 />
               </div>
               <div>
-                <label className="block text-lg mb-2">Cabinet Linear Footage</label>
+                <label className="block text-base sm:text-lg mb-2">
+                  Cabinet Linear Footage
+                </label>
                 <input
                   type="number"
                   value={cabinetUnits}
@@ -150,7 +156,7 @@ export default function Services() {
                 />
               </div>
               <div>
-                <label className="block text-lg mb-2">Trim Feet</label>
+                <label className="block text-base sm:text-lg mb-2">Trim Feet</label>
                 <input
                   type="number"
                   value={trimFeet}
@@ -162,50 +168,50 @@ export default function Services() {
             </div>
             <button
               onClick={handleCalculate}
-              className="bg-primary text-tertiary py-2 px-6 rounded-md hover:bg-tertiary hover:text-primary transition-colors"
+              className="bg-primary text-tertiary py-2 px-6 rounded-md hover:bg-tertiary hover:text-primary transition-colors w-full sm:w-auto"
             >
               Calculate
             </button>
             <div className="mt-8 text-left w-full">
-              <div className="flex justify-between">
-                <div className="w-full md:w-1/2 bg-secondary p-4 m-8 rounded-md shadow-md">
-                  <p className="text-lg text-tertiary montserrat-regular mb-2">
-                    <strong>GlowUp Tile Cost:</strong> ${tileCost}
+              <div className="flex flex-col sm:flex-row justify-between">
+                <div className="w-full sm:w-1/2 bg-secondary p-4 mb-4 sm:mb-0 sm:mr-4 rounded-md shadow-md">
+                  <h3 className="text-xl font-bold mb-2">GlowUp Costs</h3>
+                  <p className="text-base sm:text-lg text-tertiary montserrat-regular mb-2">
+                    <strong>Tile:</strong> ${tileCost}
                   </p>
-                  <p className="text-lg text-tertiary montserrat-regular mb-2">
-                    <strong>GlowUp Floor Cost:</strong> ${floorCost}
+                  <p className="text-base sm:text-lg text-tertiary montserrat-regular mb-2">
+                    <strong>Floor:</strong> ${floorCost}
                   </p>
-                  <p className="text-lg text-tertiary montserrat-regular mb-2">
-                    <strong>GlowUp Cabinet Cost:</strong> ${cabinetCost}
+                  <p className="text-base sm:text-lg text-tertiary montserrat-regular mb-2">
+                    <strong>Cabinet:</strong> ${cabinetCost}
                   </p>
-                  <p className="text-lg text-tertiary montserrat-regular mb-2">
-                    <strong>GlowUp Trim Cost:</strong> ${trimCost}
+                  <p className="text-base sm:text-lg text-tertiary montserrat-regular mb-2">
+                    <strong>Trim:</strong> ${trimCost}
                   </p>
-
-                  <p className="text-lg text-tertiary montserrat-regular mb-2">
-                    <strong>GlowUp Total Cost:</strong> ${totalCost}
+                  <p className="text-base sm:text-lg text-tertiary montserrat-regular mb-2">
+                    <strong>Total:</strong> ${totalCost}
                   </p>
                 </div>
-                <div className="w-full md:w-1/2 bg-secondary p-4 m-8 rounded-md shadow-md">
-                  <p className="text-lg text-tertiary montserrat-regular mb-2">
-                    <strong>Tile Full Replacement:</strong> ${tileFullReplacement}
+                <div className="w-full sm:w-1/2 bg-secondary p-4 rounded-md shadow-md">
+                  <h3 className="text-xl font-bold mb-2">Full Replacement Costs</h3>
+                  <p className="text-base sm:text-lg text-tertiary montserrat-regular mb-2">
+                    <strong>Tile:</strong> ${tileFullReplacement}
                   </p>
-                  <p className="text-lg text-tertiary montserrat-regular mb-2">
-                    <strong>Floor Full Replacement:</strong> ${floorFullReplacement}
+                  <p className="text-base sm:text-lg text-tertiary montserrat-regular mb-2">
+                    <strong>Floor:</strong> ${floorFullReplacement}
                   </p>
-                  <p className="text-lg text-tertiary montserrat-regular mb-2">
-                    <strong>Cabinet Full Replacement:</strong> ${cabinetFullReplacement}
+                  <p className="text-base sm:text-lg text-tertiary montserrat-regular mb-2">
+                    <strong>Cabinet:</strong> ${cabinetFullReplacement}
                   </p>
-                  <p className="text-lg text-tertiary montserrat-regular mb-2">
-                    <strong>Trim Full Replacement:</strong> ${trimFullReplacement}
+                  <p className="text-base sm:text-lg text-tertiary montserrat-regular mb-2">
+                    <strong>Trim:</strong> ${trimFullReplacement}
                   </p>
-
-                  <p className="text-lg text-tertiary montserrat-regular mb-2">
-                    <strong>Full Renovation Cost:</strong> ${fullReplacementCost}
+                  <p className="text-base sm:text-lg text-tertiary montserrat-regular mb-2">
+                    <strong>Total:</strong> ${fullReplacementCost}
                   </p>
                 </div>
               </div>
-              <p className="text-2xl text-center text-tertiary montserrat-bold mt-4">
+              <p className="text-xl sm:text-2xl text-center text-tertiary montserrat-bold mt-4">
                 <strong>Total Savings:</strong> ${savings}
               </p>
             </div>
@@ -214,22 +220,24 @@ export default function Services() {
           <ServiceCard
             title="Refresh"
             image="/tiled.jpg" // Replace with your image path
-            description="Bring your old tiles back to life with our one-of-a-kind cleaning, resealing, and staining process. Our meticulous attention to detail ensures every tile looks brand new, giving your floors a fresh and vibrant appearance."
+            description="Bring your old tiles back to life with our one-of-a-kind cleaning, resealing, and staining process. Our meticulous attention to detail ensures every tile looks brand new, giving your floors a fresh and vibrant appearance. This cost-effective solution revitalizes your space without the high expense of replacing all your tiles."
           />
           <ServiceCard
             title="Refurbish"
             image="/floor.jpg" // Replace with your image path
-            description="Our floor refurbishing service revitalizes your flooring with expert sanding, staining, and sealing for a polished finish. Transform your worn-out floors into stunning surfaces that enhance the beauty of your home."
+            description="Our floor refurbishing service revitalizes your flooring with expert sanding, staining, and sealing for a polished finish. Transform your worn-out floors into stunning surfaces that enhance the beauty of your home. Save significantly on costs by refurbishing instead of opting for a full floor replacement."
+            reverse
           />
           <ServiceCard
             title="Repair"
             image="/trim.jpg" // Replace with your image path
-            description="We repair and restore your cabinets and trim, ensuring they are free from damage and look as good as new. Our skilled craftsmen handle every repair with precision, preserving the integrity and beauty of your woodwork."
+            description="We repair and restore your cabinets and trim, ensuring they are free from damage and look as good as new. Our skilled craftsmen handle every repair with precision, preserving the integrity and beauty of your woodwork. This approach is far more economical than a complete cabinetry and trim overhaul."
           />
           <ServiceCard
             title="Renew"
             image="/paint.jpg" // Replace with your image path
-            description="Our paint renewal service gives your walls a fresh, even coat of paint, enhancing the beauty and ambiance of your home. Choose from a variety of colors and finishes to create the perfect look for your living spaces."
+            description="Our paint renewal service gives your walls a fresh, even coat of paint, enhancing the beauty and ambiance of your home. Choose from a variety of colors and finishes to create the perfect look for your living spaces. Renewing your paint is a budget-friendly way to achieve a transformative effect compared to extensive renovations."
+            reverse
           />
         </div>
       </section>
@@ -241,23 +249,26 @@ interface ServiceCardProps {
   title: string;
   image: string;
   description: string;
+  reverse?: boolean;
 }
 
-function ServiceCard({ title, image, description }: ServiceCardProps) {
+function ServiceCard({ title, image, description, reverse }: ServiceCardProps) {
   return (
-    <div className="flex flex-wrap items-center fade-in-section opacity-0 transition-opacity duration-1000">
-      <div className="w-full md:w-1/2">
+    <div
+      className={`flex flex-wrap items-center fade-in-section opacity-0 transition-opacity duration-1000 ${
+        reverse ? "flex-row-reverse" : ""
+      }`}
+    >
+      <div className="w-full md:w-1/2 p-4 md:p-8">
         <Image
           src={image}
           alt={`${title} Image`}
           width={500}
           height={300}
-          layout="responsive"
-          objectFit="cover"
-          className="rounded-lg"
+          className="object-cover rounded-lg"
         />
       </div>
-      <div className="w-full md:w-1/2 p-8">
+      <div className="w-full md:w-1/2 p-8 md:p-12">
         <h2 className="text-3xl font-bold text-tertiary montserrat-alternates-regular mb-4">
           {title}
         </h2>

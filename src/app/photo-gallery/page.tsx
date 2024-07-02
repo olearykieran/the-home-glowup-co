@@ -6,7 +6,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import Image from "next/image";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 export default function Gallery() {
   useEffect(() => {
@@ -22,15 +22,14 @@ export default function Gallery() {
       observer.observe(section);
     });
 
-    // Cleanup the observer
     return () => {
       observer.disconnect();
     };
   }, []);
 
   const galleryItems = [
-    { before: "/before-1.jpeg", after: "/after-1.jpeg" },
-    { before: "/before-2.jpeg", after: "/after-2.jpeg" },
+    { before: "Coming Soon", after: "Coming Soon" },
+    { before: "Coming Soon", after: "Coming Soon" },
     // Add more items as needed
   ];
 
@@ -49,33 +48,36 @@ export default function Gallery() {
               >
                 <Swiper
                   modules={[Navigation, Pagination]}
-                  navigation
+                  navigation={{
+                    prevEl: `.swiper-button-prev-${index}`,
+                    nextEl: `.swiper-button-next-${index}`,
+                  }}
                   pagination={{ clickable: true }}
                   spaceBetween={30}
-                  className="mySwiper customSwiper" // Apply custom styles
+                  className="mySwiper customSwiper relative"
                 >
                   <SwiperSlide className="swiperSlide">
-                    <Image
-                      src={item.after}
-                      alt={`After Image ${index + 1}`}
-                      layout="responsive"
-                      width={500}
-                      height={500}
-                      className="rounded-lg"
-                    />
+                    <div className="h-64 flex items-center justify-center bg-gray-200 rounded-lg">
+                      <p className="text-2xl text-gray-600">{item.after}</p>
+                    </div>
                     <div className="overlay">After</div>
                   </SwiperSlide>
                   <SwiperSlide className="swiperSlide">
-                    <Image
-                      src={item.before}
-                      alt={`Before Image ${index + 1}`}
-                      layout="responsive"
-                      width={500}
-                      height={500}
-                      className="rounded-lg"
-                    />
+                    <div className="h-64 flex items-center justify-center bg-gray-200 rounded-lg">
+                      <p className="text-2xl text-gray-600">{item.before}</p>
+                    </div>
                     <div className="overlay">Before</div>
                   </SwiperSlide>
+                  <div
+                    className={`swiper-button-prev-${index} absolute left-0 top-1/2 transform -translate-y-1/2 z-10`}
+                  >
+                    <FaArrowLeft className="text-tertiary text-2xl" />
+                  </div>
+                  <div
+                    className={`swiper-button-next-${index} absolute right-0 top-1/2 transform -translate-y-1/2 z-10`}
+                  >
+                    <FaArrowRight className="text-tertiary text-2xl" />
+                  </div>
                 </Swiper>
               </div>
             ))}

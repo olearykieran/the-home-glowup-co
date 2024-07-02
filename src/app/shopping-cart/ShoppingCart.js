@@ -1,8 +1,8 @@
-// /src/app/shopping-cart/ShoppingCart.js
 "use client";
 import { useCart } from "./CartContext";
 import { useEffect, useState } from "react";
 import Checkout from "./Checkout";
+import Image from "next/image";
 
 export default function ShoppingCart() {
   const { cart, removeFromCart } = useCart();
@@ -13,12 +13,10 @@ export default function ShoppingCart() {
   }, [cart]);
 
   return (
-    <div className="min-h-screen p-4">
-      {" "}
-      {/* Add min-height to fill viewport */}
-      <h2 className="text-2xl font-bold mb-4">Shopping Cart</h2>
+    <div>
+      <h2>Shopping Cart</h2>
       {localCart.length === 0 ? (
-        <p className="p-4 m-4 text-center text-tertiary  text-lg">Your cart is empty</p>
+        <p>No items in cart</p>
       ) : (
         <div>
           <ul>
@@ -28,10 +26,12 @@ export default function ShoppingCart() {
                 className="flex justify-between items-center p-2 border-b"
               >
                 <div className="flex items-center">
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.name}
-                    className="w-16 h-16 object-cover mr-4"
+                    width={64}
+                    height={64}
+                    className="object-cover mr-4"
                   />
                   <div>
                     <p>{item.name}</p>

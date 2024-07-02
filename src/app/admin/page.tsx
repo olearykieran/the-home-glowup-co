@@ -1,31 +1,14 @@
-"use client";
+// /src/app/admin/page.tsx
 
-import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import Orders from "./Orders";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 
-export default function AdminPage() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [authorized, setAuthorized] = useState(false);
+const AdminContent = dynamic(() => import("./AdminContent"), { ssr: false });
 
-  useEffect(() => {
-    // Check for the secret query parameter on the client side
-    const secret = searchParams.get("secret");
-    if (secret === process.env.NEXT_PUBLIC_ADMIN_SECRET) {
-      setAuthorized(true);
-    } else {
-      router.push("/"); // Redirect to home if not authorized
-    }
-  }, [searchParams, router]);
-
-  if (!authorized) {
-    return <div>Loading...</div>;
-  }
-
+export default function Admin() {
   return (
-    <div>
-      <Orders />
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <AdminContent />
+    </Suspense>
   );
 }

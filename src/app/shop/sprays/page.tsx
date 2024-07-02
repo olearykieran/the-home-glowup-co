@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useCart } from "../../shopping-cart/CartContext";
 import SuccessMessage from "../../components/Success";
 
@@ -85,14 +86,20 @@ export default function Sprays() {
                   ${spray.price.toFixed(2)}
                 </div>
                 <button
-                  onClick={() => handleAddToCart(spray)}
-                  className="bg-primary text-tertiary py-2 px-4 rounded-md hover:bg-tertiary hover:text-primary transition-colors mt-2"
+                  disabled
+                  className="bg-gray-500 text-white py-2 px-4 rounded-md mt-2 cursor-not-allowed"
                 >
-                  Add to Cart
+                  Coming Soon
                 </button>
               </div>
             ))}
           </div>
+          <Link
+            href="/shop"
+            className="bg-primary text-tertiary py-2 px-4 rounded-md hover:bg-tertiary hover:text-primary transition-colors mt-8 inline-block"
+          >
+            Back to Shop
+          </Link>
         </div>
       </section>
     </main>

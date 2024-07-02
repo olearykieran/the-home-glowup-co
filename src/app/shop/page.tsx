@@ -28,7 +28,7 @@ export default function Shop() {
       <section className="w-full py-16 px-8 text-center">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-tertiary montserrat-alternates-regular mb-8">
-            Shop
+            Shop (Coming Soon...)
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <Link href="/shop/candles" passHref>
@@ -36,10 +36,9 @@ export default function Shop() {
                 <Image
                   src="/candle.jpg"
                   alt="Soaps"
-                  layout="responsive"
                   width={500}
                   height={300}
-                  className="rounded-lg"
+                  className="rounded-lg object-cover"
                 />
                 <div className="mt-4 text-2xl font-semibold text-tertiary montserrat-alternates-regular">
                   Candles
@@ -51,10 +50,9 @@ export default function Shop() {
                 <Image
                   src="/spray.jpg"
                   alt="Sprays"
-                  layout="responsive"
                   width={500}
                   height={300}
-                  className="rounded-lg"
+                  className="rounded-lg object-cover"
                 />
                 <div className="mt-4 text-2xl font-semibold text-tertiary montserrat-alternates-regular">
                   Sprays
