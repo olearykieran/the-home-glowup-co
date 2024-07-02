@@ -4,6 +4,7 @@ import { ReactNode, useState, useEffect } from "react";
 import "./globals.css";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   FaFacebookF,
   FaTwitter,
@@ -18,12 +19,36 @@ import {
 import { SiTiktok } from "react-icons/si";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { CartProvider, useCart } from "./shopping-cart/CartContext";
-import { useRouter } from "next/navigation";
 import { db } from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
 
 interface RootLayoutProps {
   children: ReactNode;
+}
+
+interface SocialIconProps {
+  href: string;
+  icon: ReactNode;
+}
+
+interface NavLinkProps {
+  href: string;
+  icon: ReactNode;
+  label: string;
+  onClick: () => void;
+}
+
+interface ContactFormProps {
+  formData: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    zipCode: string;
+    message: string;
+  };
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 function CartIcon() {
@@ -38,7 +63,7 @@ function CartIcon() {
   if (!isMounted) return null;
 
   return (
-    <div className="relative ">
+    <div className="relative">
       <button onClick={() => router.push("/cart")} className="text-xl text-tertiary">
         <FaShoppingCart />
       </button>
@@ -53,7 +78,6 @@ function CartIcon() {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrollToContact, setScrollToContact] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -62,7 +86,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
     zipCode: "",
     message: "",
   });
-
   const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -73,7 +96,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
     e.preventDefault();
     try {
       await addDoc(collection(db, "contacts"), formData);
-
       setFormData({
         firstName: "",
         lastName: "",
@@ -90,11 +112,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     }
   };
 
-  const router = useRouter();
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  const toggleMenu = () => setMenuOpen(!menuOpen);
 
   const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
@@ -109,25 +127,22 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <CartProvider>
       <html lang="en">
         <body className="bg-cinco">
-          <header className="relative flex flex-col sm:flex-row justify-between items-center mb-0 px-4 sm:px-8 pb-0 pt-6 ">
-            <div className="flex justify-between items-center w-full sm:w-auto mb-0 sm:mb-0">
-              <div className="flex items-center mb-1 space-x-4">
+          <header className="relative flex flex-col sm:flex-row justify-between items-center px-4 sm:px-8 pb-0 pt-6">
+            <div className="flex justify-between items-center w-full sm:w-auto">
+              <div className="flex items-center space-x-4">
                 <button
                   onClick={toggleMenu}
-                  className="text-xl text-tertiary mb-1 flex items-center"
+                  className="text-xl text-tertiary flex items-center"
                 >
                   {menuOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
                 </button>
-                <div className="relative w-[24px] h-[24px]">
+                <div className="relative mt-1 w-[24px] h-[24px]">
                   <CartIcon />
                 </div>
               </div>
             </div>
-            <div className="flex-grow flex justify-center md:ml-16 mb-0 items-center">
-              <Link
-                href="/"
-                className="flex flex-col items-center mb-0 sm:mb-0 cursor-pointer"
-              >
+            <div className="flex-grow flex justify-center md:ml-16 items-center">
+              <Link href="/" className="flex flex-col items-center cursor-pointer">
                 <div className="relative w-[30px] h-[40px]">
                   <Image
                     src="/flame-2.png"
@@ -137,45 +152,25 @@ export default function RootLayout({ children }: RootLayoutProps) {
                     style={{ width: "auto", height: "auto" }}
                   />
                 </div>
-
                 <div className="text-xl mt-2 text-tertiary montserrat-alternates-thin text-center">
                   The Home GlowUp Co.
                 </div>
               </Link>
             </div>
-            <div className="hidden sm:flex mb-0 items-center space-x-4">
-              <a
+            <div className="hidden sm:flex items-center space-x-4">
+              <SocialIcon
                 href="https://www.facebook.com/profile.php?id=61561688316000"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-lg text-tertiary"
-              >
-                <FaFacebookF />
-              </a>
-              <a
-                href="https://x.com/thehomeglowupco"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-lg text-tertiary"
-              >
-                <FaTwitter />
-              </a>
-              <a
+                icon={<FaFacebookF />}
+              />
+              <SocialIcon href="https://x.com/thehomeglowupco" icon={<FaTwitter />} />
+              <SocialIcon
                 href="https://www.instagram.com/homeglowupco/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-lg text-tertiary"
-              >
-                <FaInstagram />
-              </a>
-              <a
+                icon={<FaInstagram />}
+              />
+              <SocialIcon
                 href="https://www.tiktok.com/@thehomeglowupco?lang=en"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-lg text-tertiary"
-              >
-                <SiTiktok />
-              </a>
+                icon={<SiTiktok />}
+              />
             </div>
           </header>
 
@@ -185,7 +180,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             }`}
             onClick={toggleMenu}
           ></div>
-          <div
+          <nav
             className={`fixed top-0 left-0 h-full bg-quart text-tertiary w-64 p-4 z-30 transition-transform duration-300 ${
               menuOpen ? "translate-x-0" : "-translate-x-full"
             }`}
@@ -193,239 +188,250 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <button onClick={toggleMenu} className="text-2xl text-tertiary mb-0">
               <AiOutlineClose />
             </button>
-            <nav className="flex flex-col mt-2 space-y-4">
-              <a
-                href="/"
-                className="text-lg montserrat-alternates-regular flex items-center"
-              >
-                <FaHome className="mr-2" />
-                Home
-              </a>
-              <a
-                href="/about-us"
-                className="text-lg montserrat-alternates-regular flex items-center"
-              >
-                <FaInfoCircle className="mr-2" />
-                About
-              </a>
-              <a
-                href="/services"
-                className="text-lg montserrat-alternates-regular flex items-center"
-              >
-                <FaConciergeBell className="mr-2" />
-                Services
-              </a>
-              <a
-                href="/shop"
-                className="text-lg montserrat-alternates-regular flex items-center"
-              >
-                <FaShoppingCart className="mr-2" />
-                Shop
-              </a>
-              <a
-                href="/photo-gallery"
-                className="text-lg montserrat-alternates-regular flex items=center"
-              >
-                <FaPhotoVideo className="mr-2" />
-                Gallery
-              </a>
-              <a
-                onClick={handleContactClick}
-                className="text-lg montserrat-alternates-regular flex items-center cursor-pointer"
-              >
-                <FaEnvelope className="mr-2" />
-                Contact
-              </a>
-            </nav>
+            <NavigationLinks
+              handleContactClick={handleContactClick}
+              closeMenu={toggleMenu}
+            />
             <div className="mt-8 sm:hidden">
               <div className="flex justify-center space-x-4">
-                <a
-                  href="https://facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xl text-tertiary"
-                >
-                  <FaFacebookF />
-                </a>
-                <a
-                  href="https://twitter.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xl text-tertiary"
-                >
-                  <FaTwitter />
-                </a>
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xl text-tertiary"
-                >
-                  <FaInstagram />
-                </a>
-                <a
-                  href="https://tiktok.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xl text-tertiary"
-                >
-                  <SiTiktok />
-                </a>
+                <SocialIcon href="https://facebook.com" icon={<FaFacebookF />} />
+                <SocialIcon href="https://twitter.com" icon={<FaTwitter />} />
+                <SocialIcon href="https://instagram.com" icon={<FaInstagram />} />
+                <SocialIcon href="https://tiktok.com" icon={<SiTiktok />} />
               </div>
             </div>
-          </div>
+          </nav>
           <main className="flex-grow bg-white mt-6 min-h-screen">{children}</main>
-          {/* Contact Us Section */}
-          <section id="contact" className="w-full bg-tertiary py-16">
-            <div id="contact" className="max-w-5xl p-8 mx-auto text-center">
-              <h2 className="text-4xl font-bold montserrat-alternates-regular text-quart text-left mb-12">
-                Contact Us
-              </h2>
-              {successMessage && (
-                <div className="bg-cinco text-tertiary p-4 rounded mb-4">
-                  {successMessage}
-                </div>
-              )}
-              <div className="flex flex-col md:flex-row md:justify-between montserrat-alternates-regular items-center bg-quart p-8 rounded-lg shadow-lg">
-                <div className="md:w-1/2 mb-4 md:mb-0">
-                  <Image
-                    src="/flame-2.png" // Replace with your logo path
-                    alt="Logo"
-                    width={50}
-                    height={50}
-                    className="mx-auto mb-4"
-                  />
-                  <h3 className="text-2xl montserrat-alternates-regular text-tertiary mb-4">
-                    Get in Touch
-                  </h3>
-                  <p className="text-lg text-gray-700 px-8 py-2 mb-4">
-                    Fill out this form to request an appointment, schedule a consult, or
-                    ask general questions.
-                  </p>
-                  <div className="text-left">
-                    <p className="text-lg text-gray-700">
-                      <span className="font-bold montserrat-bold">
-                        Phone (Call or Text):
-                      </span>{" "}
-                      (516) 382-4279
-                    </p>
-                    <p className="text-lg text-gray-700">
-                      <span className="font-bold montserrat-bold">Email:</span>{" "}
-                      info@thehomeglowupco.com
-                    </p>
-                  </div>
-                </div>
-                <div className="md:w-1/2">
-                  <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
-                    <input
-                      className="col-span-2 sm:col-span-1 border border-gray-300 p-2 rounded-lg text-black"
-                      name="firstName"
-                      type="text"
-                      placeholder="First Name"
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      required
-                    />
-                    <input
-                      className="col-span-2 sm:col-span-1 border border-gray-300 p-2 rounded-lg text-black"
-                      name="lastName"
-                      type="text"
-                      placeholder="Last Name"
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      required
-                    />
-                    <input
-                      className="col-span-2 border border-gray-300 p-2 rounded-lg text-black"
-                      name="email"
-                      type="email"
-                      placeholder="Email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                    />
-                    <input
-                      className="col-span-2 sm:col-span-1 border border-gray-300 p-2 rounded-lg text-black"
-                      name="phone"
-                      type="text"
-                      placeholder="Phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                    />
-                    <input
-                      className="col-span-2 sm:col-span-1 border border-gray-300 p-2 rounded-lg text-black"
-                      name="zipCode"
-                      type="text"
-                      placeholder="Zip Code"
-                      value={formData.zipCode}
-                      onChange={handleChange}
-                      required
-                    />
-                    <textarea
-                      className="col-span-2 border border-gray-300 p-2 rounded-lg text-black"
-                      name="message"
-                      placeholder="How can we help you?"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                    ></textarea>
-                    <button
-                      className="col-span-2 bg-primary text-tertiary p-2 rounded-md hover:bg-tertiary hover:text-secondary transition-colors"
-                      type="submit"
-                    >
-                      Submit
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </section>
-          <footer className="bg-cinco text-tertiary py-8">
-            <div className="max-w-6xl mx-auto text-center">
-              <div className="flex flex-col items-center">
-                <div className="flex justify-center space-x-4 mb-4">
-                  <a
-                    href="https://www.facebook.com/profile.php?id=61561688316000"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xl"
-                  >
-                    <FaFacebookF />
-                  </a>
-                  <a
-                    href="https://x.com/thehomeglowupco"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xl"
-                  >
-                    <FaTwitter />
-                  </a>
-                  <a
-                    href="https://www.instagram.com/homeglowupco/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xl"
-                  >
-                    <FaInstagram />
-                  </a>
-                  <a
-                    href="https://www.tiktok.com/@thehomeglowupco?lang=en"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xl"
-                  >
-                    <SiTiktok />
-                  </a>
-                </div>
-                <p className="text-sm">
-                  &copy; {new Date().getFullYear()} The Home GlowUp Co. - All Rights
-                  Reserved.
-                </p>
-              </div>
-            </div>
-          </footer>
+          <ContactUsSection
+            formData={formData}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            successMessage={successMessage}
+          />
+          <Footer />
         </body>
       </html>
     </CartProvider>
+  );
+}
+
+function SocialIcon({ href, icon }: SocialIconProps) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-lg text-tertiary"
+    >
+      {icon}
+    </a>
+  );
+}
+
+function NavigationLinks({
+  handleContactClick,
+  closeMenu,
+}: {
+  handleContactClick: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+  closeMenu: () => void;
+}) {
+  return (
+    <nav className="flex flex-col mt-2 space-y-4">
+      <NavLink href="/" icon={<FaHome />} label="Home" onClick={closeMenu} />
+      <NavLink
+        href="/about-us"
+        icon={<FaInfoCircle />}
+        label="About"
+        onClick={closeMenu}
+      />
+      <NavLink
+        href="/services"
+        icon={<FaConciergeBell />}
+        label="Services"
+        onClick={closeMenu}
+      />
+      <NavLink href="/shop" icon={<FaShoppingCart />} label="Shop" onClick={closeMenu} />
+      <NavLink
+        href="/photo-gallery"
+        icon={<FaPhotoVideo />}
+        label="Gallery"
+        onClick={closeMenu}
+      />
+      <a
+        onClick={handleContactClick}
+        className="text-lg montserrat-alternates-regular flex items-center cursor-pointer"
+      >
+        <FaEnvelope className="mr-2" />
+        Contact
+      </a>
+    </nav>
+  );
+}
+
+function NavLink({ href, icon, label, onClick }: NavLinkProps) {
+  return (
+    <Link
+      href={href}
+      className="text-lg montserrat-alternates-regular flex items-center"
+      onClick={onClick}
+    >
+      {icon}
+      <span className="ml-2">{label}</span>
+    </Link>
+  );
+}
+
+function ContactUsSection({
+  formData,
+  handleChange,
+  handleSubmit,
+  successMessage,
+}: ContactFormProps & { successMessage: string }) {
+  return (
+    <section id="contact" className="w-full bg-tertiary py-16">
+      <div id="contact" className="max-w-5xl p-8 mx-auto text-center">
+        <h2 className="text-4xl font-bold montserrat-alternates-regular text-quart text-left mb-12">
+          Contact Us
+        </h2>
+        {successMessage && (
+          <div className="bg-cinco text-tertiary p-4 rounded mb-4">{successMessage}</div>
+        )}
+        <div className="flex flex-col md:flex-row md:justify-between montserrat-alternates-regular items-center bg-quart p-8 rounded-lg shadow-lg">
+          <ContactInfo />
+          <ContactForm
+            formData={formData}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ContactInfo() {
+  return (
+    <div className="md:w-1/2 mb-4 md:mb-0">
+      <Image
+        src="/flame-2.png"
+        alt="Logo"
+        width={50}
+        height={50}
+        className="mx-auto mb-4"
+      />
+      <h3 className="text-2xl montserrat-alternates-regular text-tertiary mb-4">
+        Get in Touch
+      </h3>
+      <p className="text-lg text-gray-700 px-8 py-2 mb-4">
+        Fill out this form to request an appointment, schedule a consult, or ask general
+        questions.
+      </p>
+      <div className="text-left">
+        <p className="text-lg text-gray-700">
+          <span className="font-bold montserrat-bold">Phone (Call or Text):</span> (516)
+          382-4279
+        </p>
+        <p className="text-lg text-gray-700">
+          <span className="font-bold montserrat-bold">Email:</span>{" "}
+          info@thehomeglowupco.com
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function ContactForm({ formData, handleChange, handleSubmit }: ContactFormProps) {
+  return (
+    <div className="md:w-1/2">
+      <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+        <input
+          className="col-span-2 sm:col-span-1 border border-gray-300 p-2 rounded-lg text-black"
+          name="firstName"
+          type="text"
+          placeholder="First Name"
+          value={formData.firstName}
+          onChange={handleChange}
+          required
+        />
+        <input
+          className="col-span-2 sm:col-span-1 border border-gray-300 p-2 rounded-lg text-black"
+          name="lastName"
+          type="text"
+          placeholder="Last Name"
+          value={formData.lastName}
+          onChange={handleChange}
+          required
+        />
+        <input
+          className="col-span-2 border border-gray-300 p-2 rounded-lg text-black"
+          name="email"
+          type="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        <input
+          className="col-span-2 sm:col-span-1 border border-gray-300 p-2 rounded-lg text-black"
+          name="phone"
+          type="text"
+          placeholder="Phone"
+          value={formData.phone}
+          onChange={handleChange}
+        />
+        <input
+          className="col-span-2 sm:col-span-1 border border-gray-300 p-2 rounded-lg text-black"
+          name="zipCode"
+          type="text"
+          placeholder="Zip Code"
+          value={formData.zipCode}
+          onChange={handleChange}
+          required
+        />
+        <textarea
+          className="col-span-2 border border-gray-300 p-2 rounded-lg text-black"
+          name="message"
+          placeholder="How can we help you?"
+          value={formData.message}
+          onChange={handleChange}
+          required
+        ></textarea>
+        <button
+          className="col-span-2 bg-primary text-tertiary p-2 rounded-md hover:bg-tertiary hover:text-secondary transition-colors"
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="bg-cinco text-tertiary py-8">
+      <div className="max-w-6xl mx-auto text-center">
+        <div className="flex flex-col items-center">
+          <div className="flex justify-center space-x-4 mb-4">
+            <SocialIcon
+              href="https://www.facebook.com/profile.php?id=61561688316000"
+              icon={<FaFacebookF />}
+            />
+            <SocialIcon href="https://x.com/thehomeglowupco" icon={<FaTwitter />} />
+            <SocialIcon
+              href="https://www.instagram.com/homeglowupco/"
+              icon={<FaInstagram />}
+            />
+            <SocialIcon
+              href="https://www.tiktok.com/@thehomeglowupco?lang=en"
+              icon={<SiTiktok />}
+            />
+          </div>
+          <p className="text-sm">
+            &copy; {new Date().getFullYear()} The Home GlowUp Co. - All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
   );
 }

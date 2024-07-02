@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect } from "react";
+import Head from "next/head";
 
 export default function Shop() {
   useEffect(() => {
@@ -18,50 +19,90 @@ export default function Shop() {
       observer.observe(section);
     });
 
-    // Cleanup the observer
     return () => {
       observer.disconnect();
     };
   }, []);
+
   return (
-    <main className="bg-white min-h-screen py-16 px-8">
-      <section className="w-full py-16 px-8 text-center">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-tertiary montserrat-alternates-regular mb-8">
-            Shop (Coming Soon...)
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Link href="/shop/candles" passHref>
-              <div className="group cursor-pointer fade-in-section opacity-0 transition-opacity duration-1000">
-                <Image
-                  src="/candle.jpg"
-                  alt="Soaps"
-                  width={500}
-                  height={300}
-                  className="rounded-lg object-cover"
-                />
-                <div className="mt-4 text-2xl font-semibold text-tertiary montserrat-alternates-regular">
-                  Candles
-                </div>
-              </div>
-            </Link>
-            <Link href="/shop/sprays" passHref>
-              <div className="group cursor-pointer fade-in-section opacity-0 transition-opacity duration-1000">
-                <Image
-                  src="/spray.jpg"
-                  alt="Sprays"
-                  width={500}
-                  height={300}
-                  className="rounded-lg object-cover"
-                />
-                <div className="mt-4 text-2xl font-semibold text-tertiary montserrat-alternates-regular">
-                  Sprays
-                </div>
-              </div>
-            </Link>
-          </div>
+    <>
+      <Head>
+        <title>Shop - The Home GlowUp Co.</title>
+        <meta
+          name="description"
+          content="Explore our range of handmade candles and essential oil sprays. Elevate your home ambiance with our exquisite products."
+        />
+        <meta
+          name="keywords"
+          content="shop, candles, essential oil sprays, home products"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta property="og:title" content="Shop - The Home GlowUp Co." />
+        <meta
+          property="og:description"
+          content="Explore our range of handmade candles and essential oil sprays. Elevate your home ambiance with our exquisite products."
+        />
+        <meta property="og:url" content="https://thehomeglowup.com/shop" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Shop - The Home GlowUp Co." />
+        <meta
+          name="twitter:description"
+          content="Explore our range of handmade candles and essential oil sprays. Elevate your home ambiance with our exquisite products."
+        />
+      </Head>
+      <main className="bg-white min-h-screen py-16 px-8">
+        <ShopSection />
+      </main>
+    </>
+  );
+}
+
+function ShopSection() {
+  return (
+    <section className="w-full py-16 px-8 text-center">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-4xl font-bold text-tertiary montserrat-alternates-regular mb-8">
+          Shop (Coming Soon...)
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <ShopItem
+            href="/shop/candles"
+            src="/candle.jpg"
+            alt="Candles"
+            title="Candles"
+          />
+          <ShopItem href="/shop/sprays" src="/spray.jpg" alt="Sprays" title="Sprays" />
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
+  );
+}
+
+function ShopItem({
+  href,
+  src,
+  alt,
+  title,
+}: {
+  href: string;
+  src: string;
+  alt: string;
+  title: string;
+}) {
+  return (
+    <Link href={href} passHref>
+      <div className="group cursor-pointer fade-in-section opacity-0 transition-opacity duration-1000">
+        <Image
+          src={src}
+          alt={alt}
+          width={500}
+          height={300}
+          className="rounded-lg object-cover"
+        />
+        <div className="mt-4 text-2xl font-semibold text-tertiary montserrat-alternates-regular">
+          {title}
+        </div>
+      </div>
+    </Link>
   );
 }
