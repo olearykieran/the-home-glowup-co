@@ -82,7 +82,7 @@ export default function Home() {
                 About Us
               </h2>
               <p className="text-base sm:text-lg text-tertiary montserrat-regular mb-4 sm:mb-6">
-                At The Home GlowUp Co., we specialize in revitalizing your home with a
+                At The Home GlowUp Company, we specialize in revitalizing your home with a
                 touch of elegance. We understand the importance of a serene and joyous
                 living space, and our expertise transforms every corner of your house. Our
                 mission is to deliver sophisticated makeovers that make your spaces shine
