@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useCart } from "../../shopping-cart/CartContext";
+// import { useCart } from "../../shopping-cart/CartContext";
 import SuccessMessage from "../../components/Success";
 
 interface Candle {
@@ -34,7 +34,7 @@ export default function Candles() {
     };
   }, []);
 
-  const { addToCart } = useCart();
+  // const { addToCart } = useCart();
 
   const candles: Candle[] = [
     { id: 1, name: "Clove & Ylang Ylang Candle", image: "/candle.jpg", price: 5.0 },
@@ -48,7 +48,7 @@ export default function Candles() {
 
   const handleAddToCart = (candle: Candle) => {
     console.log("Adding to cart:", candle);
-    addToCart(candle);
+    // addToCart(candle);
     setSuccessMessage(`Added ${candle.name} to cart!`);
 
     // Remove the success message after 3 seconds

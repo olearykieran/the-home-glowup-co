@@ -185,7 +185,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        {/* Products Section */}
+        {/* Products Section 
         <section className="w-full bg-gradient-to-r py-16 px-8">
           <div className="max-w-6xl mx-auto text-center">
             <h2 className="text-4xl font-bold text-tertiary text-left montserrat-alternates-regular mb-12">
@@ -229,6 +229,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+        */}
       </main>
     </>
   );

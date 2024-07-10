@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useCart } from "../../shopping-cart/CartContext";
+// import { useCart } from "../../shopping-cart/CartContext";
 import SuccessMessage from "../../components/Success";
 import Head from "next/head";
 
@@ -35,7 +35,7 @@ export default function Sprays() {
     };
   }, []);
 
-  const { addToCart } = useCart();
+  // const { addToCart } = useCart();
 
   const sprays: Spray[] = [
     { id: 1, name: "Clove & Ylang Ylang Spray", image: "/spray.jpg", price: 8.0 },
@@ -49,7 +49,7 @@ export default function Sprays() {
 
   const handleAddToCart = (spray: Spray) => {
     console.log("Adding to cart:", spray);
-    addToCart(spray);
+    // addToCart(spray);
     setSuccessMessage(`Added ${spray.name} to cart!`);
 
     // Remove the success message after 3 seconds

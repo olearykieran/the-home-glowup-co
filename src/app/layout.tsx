@@ -9,16 +9,16 @@ import {
   FaFacebookF,
   FaTwitter,
   FaInstagram,
-  FaShoppingCart,
   FaEnvelope,
   FaConciergeBell,
   FaInfoCircle,
   FaHome,
+  // FaShoppingCart,
   FaPhotoVideo,
 } from "react-icons/fa";
 import { SiTiktok } from "react-icons/si";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import { CartProvider, useCart } from "./shopping-cart/CartContext";
+// import { CartProvider, useCart } from "./shopping-cart/CartContext";
 import { db } from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
 
@@ -51,6 +51,7 @@ interface ContactFormProps {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
+/*
 function CartIcon() {
   const { cart } = useCart();
   const router = useRouter();
@@ -75,6 +76,7 @@ function CartIcon() {
     </div>
   );
 }
+*/
 
 export default function RootLayout({ children }: RootLayoutProps) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -124,94 +126,94 @@ export default function RootLayout({ children }: RootLayoutProps) {
   };
 
   return (
-    <CartProvider>
-      <html lang="en">
-        <body className="bg-cinco">
-          <header className="relative flex flex-col sm:flex-row justify-between items-center px-4 sm:px-8 pb-0 pt-6">
-            <div className="flex justify-between items-center w-full sm:w-auto">
-              <div className="flex items-center space-x-4">
-                <button
-                  onClick={toggleMenu}
-                  className="text-xl text-tertiary flex items-center"
-                >
-                  {menuOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
-                </button>
-                <div className="relative mt-1 w-[24px] h-[24px]">
+    // <CartProvider>
+    <html lang="en">
+      <body className="bg-cinco">
+        <header className="relative flex flex-col sm:flex-row justify-between items-center px-4 sm:px-8 pb-0 pt-6">
+          <div className="flex justify-between items-center w-full sm:w-auto">
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={toggleMenu}
+                className="text-xl text-tertiary flex items-center"
+              >
+                {menuOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
+              </button>
+              {/* <div className="relative mt-1 w-[24px] h-[24px]">
                   <CartIcon />
-                </div>
+                </div> */}
+            </div>
+          </div>
+          <div className="flex-grow flex justify-center md:ml-16 items-center">
+            <Link href="/" className="flex flex-col items-center cursor-pointer">
+              <div className="relative w-[30px] h-[40px]">
+                <Image
+                  src="/flame-2.png"
+                  alt="Logo"
+                  width={30}
+                  height={30}
+                  style={{ width: "auto", height: "auto" }}
+                />
               </div>
-            </div>
-            <div className="flex-grow flex justify-center md:ml-16 items-center">
-              <Link href="/" className="flex flex-col items-center cursor-pointer">
-                <div className="relative w-[30px] h-[40px]">
-                  <Image
-                    src="/flame-2.png"
-                    alt="Logo"
-                    width={30}
-                    height={30}
-                    style={{ width: "auto", height: "auto" }}
-                  />
-                </div>
-                <div className="text-xl mt-2 text-tertiary montserrat-alternates-thin text-center">
-                  The Home GlowUp Co.
-                </div>
-              </Link>
-            </div>
-            <div className="hidden sm:flex items-center space-x-4">
-              <SocialIcon
-                href="https://www.facebook.com/profile.php?id=61561688316000"
-                icon={<FaFacebookF />}
-              />
-              <SocialIcon href="https://x.com/thehomeglowupco" icon={<FaTwitter />} />
-              <SocialIcon
-                href="https://www.instagram.com/homeglowupco/"
-                icon={<FaInstagram />}
-              />
-              <SocialIcon
-                href="https://www.tiktok.com/@thehomeglowupco?lang=en"
-                icon={<SiTiktok />}
-              />
-            </div>
-          </header>
-
-          <div
-            className={`fixed inset-0 bg-black bg-opacity-50 z-20 transition-opacity duration-300 ${
-              menuOpen ? "opacity-100 visible" : "opacity-0 invisible"
-            }`}
-            onClick={toggleMenu}
-          ></div>
-          <nav
-            className={`fixed top-0 left-0 h-full bg-quart text-tertiary w-64 p-4 z-30 transition-transform duration-300 ${
-              menuOpen ? "translate-x-0" : "-translate-x-full"
-            }`}
-          >
-            <button onClick={toggleMenu} className="text-2xl text-tertiary mb-0">
-              <AiOutlineClose />
-            </button>
-            <NavigationLinks
-              handleContactClick={handleContactClick}
-              closeMenu={toggleMenu}
+              <div className="text-xl mt-2 text-tertiary montserrat-alternates-thin text-center">
+                The Home GlowUp Co.
+              </div>
+            </Link>
+          </div>
+          <div className="hidden sm:flex items-center space-x-4">
+            <SocialIcon
+              href="https://www.facebook.com/profile.php?id=61561688316000"
+              icon={<FaFacebookF />}
             />
-            <div className="mt-8 sm:hidden">
-              <div className="flex justify-center space-x-4">
-                <SocialIcon href="https://facebook.com" icon={<FaFacebookF />} />
-                <SocialIcon href="https://twitter.com" icon={<FaTwitter />} />
-                <SocialIcon href="https://instagram.com" icon={<FaInstagram />} />
-                <SocialIcon href="https://tiktok.com" icon={<SiTiktok />} />
-              </div>
-            </div>
-          </nav>
-          <main className="flex-grow bg-white mt-6 min-h-screen">{children}</main>
-          <ContactUsSection
-            formData={formData}
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
-            successMessage={successMessage}
+            <SocialIcon href="https://x.com/thehomeglowupco" icon={<FaTwitter />} />
+            <SocialIcon
+              href="https://www.instagram.com/homeglowupco/"
+              icon={<FaInstagram />}
+            />
+            <SocialIcon
+              href="https://www.tiktok.com/@thehomeglowupco?lang=en"
+              icon={<SiTiktok />}
+            />
+          </div>
+        </header>
+
+        <div
+          className={`fixed inset-0 bg-black bg-opacity-50 z-20 transition-opacity duration-300 ${
+            menuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+          }`}
+          onClick={toggleMenu}
+        ></div>
+        <nav
+          className={`fixed top-0 left-0 h-full bg-quart text-tertiary w-64 p-4 z-30 transition-transform duration-300 ${
+            menuOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+        >
+          <button onClick={toggleMenu} className="text-2xl text-tertiary mb-0">
+            <AiOutlineClose />
+          </button>
+          <NavigationLinks
+            handleContactClick={handleContactClick}
+            closeMenu={toggleMenu}
           />
-          <Footer />
-        </body>
-      </html>
-    </CartProvider>
+          <div className="mt-8 sm:hidden">
+            <div className="flex justify-center space-x-4">
+              <SocialIcon href="https://facebook.com" icon={<FaFacebookF />} />
+              <SocialIcon href="https://twitter.com" icon={<FaTwitter />} />
+              <SocialIcon href="https://instagram.com" icon={<FaInstagram />} />
+              <SocialIcon href="https://tiktok.com" icon={<SiTiktok />} />
+            </div>
+          </div>
+        </nav>
+        <main className="flex-grow bg-white mt-6 min-h-screen">{children}</main>
+        <ContactUsSection
+          formData={formData}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          successMessage={successMessage}
+        />
+        <Footer />
+      </body>
+    </html>
+    // </CartProvider>
   );
 }
 
@@ -250,13 +252,13 @@ function NavigationLinks({
         label="Services"
         onClick={closeMenu}
       />
-      <NavLink href="/shop" icon={<FaShoppingCart />} label="Shop" onClick={closeMenu} />
-      <NavLink
+      {/* <NavLink href="/shop" icon={<FaShoppingCart />} label="Shop" onClick={closeMenu} /> */}
+      {/* <NavLink
         href="/photo-gallery"
         icon={<FaPhotoVideo />}
         label="Gallery"
         onClick={closeMenu}
-      />
+      /> */}
       <a
         onClick={handleContactClick}
         className="text-lg montserrat-alternates-regular flex items-center cursor-pointer"

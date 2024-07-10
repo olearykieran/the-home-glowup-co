@@ -59,7 +59,7 @@ export default function AboutUs() {
 
 function HeroSection() {
   return (
-    <div className="relative w-full h-[600px] overflow-hidden bg-gray-200">
+    <div className="relative w-full h-[400px] md:h-[600px] overflow-hidden bg-gray-200">
       <Image
         src="/nice-kitchen.jpg"
         alt="Our Story Image"
@@ -67,12 +67,12 @@ function HeroSection() {
         priority
         className="object-cover absolute inset-0"
       />
-      <div className="absolute inset-0 flex items-center justify-start fade-in-section opacity-0 transition-opacity duration-1000 p-24">
-        <div className="bg-quart rounded-md bg-opacity-80 p-16 text-left max-w-[50%]">
-          <h2 className="text-4xl font-bold text-tertiary montserrat-regular mb-4">
+      <div className="absolute inset-0 flex items-center justify-center md:justify-start fade-in-section opacity-0 transition-opacity duration-1000 p-4 md:p-24">
+        <div className="bg-quart rounded-md bg-opacity-85 p-6 md:p-16 text-left max-w-[90%] md:max-w-[50%]">
+          <h2 className="text-xl md:text-4xl font-bold text-tertiary montserrat-regular mb-4">
             Our Mission
           </h2>
-          <p className="text-lg text-tertiary montserrat-regular">
+          <p className="text-sm md:text-lg text-tertiary montserrat-regular">
             High costs shouldn&apos;t prevent you from making your home look brand new.
             With years of experience in residential construction, we understand that many
             Long Island families desire renovations but find full remodel prices
@@ -88,12 +88,12 @@ function HeroSection() {
 
 function WhoWeAreSection() {
   return (
-    <section className="w-full bg-quart py-24 px-8 text-center">
+    <section className="w-full bg-quart py-24 px-4 md:px-8 text-center">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold text-tertiary montserrat-alternates-regular mb-8">
+        <h2 className="text-3xl md:text-4xl font-bold text-tertiary montserrat-alternates-regular mb-8">
           Who We Are
         </h2>
-        <div className="flex flex-wrap justify-center md:justify-between items-start md:items-stretch">
+        <div className="flex flex-col md:flex-row justify-center md:justify-between items-center md:items-stretch">
           <TeamMember
             name="Denis Patrick O'Leary"
             title="Co-Founder & CEO"
@@ -142,24 +142,42 @@ interface TeamMemberProps {
 function TeamMember({ name, title, imageSrc, description, reverse }: TeamMemberProps) {
   return (
     <div
-      className={`flex flex-col items-${reverse ? "start" : "end"} w-full md:w-1/2 text-${
-        reverse ? "left" : "right"
-      } md:${reverse ? "pl" : "pr"}-8 fade-in-section slide-in-${
+      className={`flex flex-col ${
+        reverse ? "md:items-start" : "md:items-end"
+      } w-full md:w-1/2 ${reverse ? "md:pl-8" : "md:pr-8"} fade-in-section slide-in-${
         reverse ? "right" : "left"
-      }`}
+      } mb-8 md:mb-0`}
     >
-      <div className={`flex flex-col items-${reverse ? "start" : "end"}`}>
-        <div className="relative w-48 h-48 mb-4">
+      <div
+        className={`flex flex-col items-center ${
+          reverse ? "md:items-start" : "md:items-end"
+        }`}
+      >
+        <div className="relative w-32 h-32 md:w-48 md:h-48 mb-4">
           <Image src={imageSrc} alt={name} fill className="object-cover rounded-full" />
         </div>
-        <h3 className="text-2xl font-semibold text-tertiary montserrat-alternates-regular">
+        <h3
+          className={`text-2xl font-semibold text-tertiary montserrat-alternates-regular ${
+            reverse ? "text-left" : "text-right"
+          }`}
+        >
           {name}
         </h3>
-        <h2 className="text-xl font-semibold text-tertiary montserrat-alternates-regular">
+        <h2
+          className={`text-xl font-semibold text-tertiary montserrat-alternates-regular ${
+            reverse ? "text-left" : "text-right"
+          }`}
+        >
           {title}
         </h2>
       </div>
-      <p className="text-md text-tertiary montserrat-regular mt-4">{description}</p>
+      <p
+        className={`text-md text-tertiary p-4 md:p-0 montserrat-regular mt-4 ${
+          reverse ? "text-left" : "text-left md:text-right"
+        }`}
+      >
+        {description}
+      </p>
     </div>
   );
 }

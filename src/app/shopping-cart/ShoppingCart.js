@@ -1,11 +1,11 @@
 "use client";
-import { useCart } from "./CartContext";
+// import { useCart } from "./CartContext";
 import { useEffect, useState } from "react";
 import Checkout from "./Checkout";
 import Image from "next/image";
 
 export default function ShoppingCart() {
-  const { cart, removeFromCart } = useCart();
+  // const { cart, removeFromCart } = useCart();
   const [localCart, setLocalCart] = useState([]);
 
   useEffect(() => {
