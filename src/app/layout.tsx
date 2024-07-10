@@ -1,10 +1,9 @@
 "use client";
 
-import { ReactNode, useState, useEffect } from "react";
+import { ReactNode, useState } from "react";
 import "./globals.css";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import {
   FaFacebookF,
   FaTwitter,
@@ -14,7 +13,6 @@ import {
   FaInfoCircle,
   FaHome,
   // FaShoppingCart,
-  FaPhotoVideo,
 } from "react-icons/fa";
 import { SiTiktok } from "react-icons/si";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
@@ -154,7 +152,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                   style={{ width: "auto", height: "auto" }}
                 />
               </div>
-              <div className="text-xl mt-2 text-tertiary montserrat-alternates-thin text-center">
+              <div className="text-2xl mt-2 text-tertiary montserrat-alternates-black text-center">
                 The Home GlowUp Co.
               </div>
             </Link>
