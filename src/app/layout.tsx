@@ -430,6 +430,9 @@ function Footer() {
           <p className="text-sm">
             &copy; {new Date().getFullYear()} The Home GlowUp Co. - All Rights Reserved.
           </p>
+          <Link href="/privacy-policy" className="text-blue-600 underline">
+            Privacy Policy
+          </Link>
         </div>
       </div>
     </footer>
