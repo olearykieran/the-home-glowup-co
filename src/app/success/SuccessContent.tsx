@@ -1,11 +1,10 @@
-// src/app/success/SuccessContent.tsx
-
 "use client";
-import { useEffect } from "react";
+
+import { useEffect, Suspense } from "react";
 import { useCart } from "../shopping-cart/CartContext";
 import { useSearchParams } from "next/navigation";
 
-export default function SuccessContent() {
+function SuccessContentInner() {
   const { clearCart } = useCart();
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
@@ -20,5 +19,13 @@ export default function SuccessContent() {
       <p>Your order has been placed successfully.</p>
       <p>Session ID: {sessionId}</p>
     </div>
+  );
+}
+
+export default function SuccessContent() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SuccessContentInner />
+    </Suspense>
   );
 }

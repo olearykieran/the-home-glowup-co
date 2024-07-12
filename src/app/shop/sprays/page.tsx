@@ -62,20 +62,6 @@ export default function Sprays() {
     <>
       <Head>
         <title>Sprays - The Home GlowUp Co.</title>
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=AW-16633623489"
-        ></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-16633623489');
-          `,
-          }}
-        />
         <meta
           name="description"
           content="Explore our range of handmade essential oil sprays with unique blends of scents. Perfect for enhancing your home ambiance."
