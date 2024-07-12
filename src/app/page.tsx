@@ -28,6 +28,20 @@ export default function Home() {
     <>
       <Head>
         <title>The Home GlowUp Co. - Elegant Home Transformations</title>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-16633623489"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-16633623489');
+          `,
+          }}
+        />
         <meta
           name="description"
           content="Revitalize your home with elegant transformations for kitchens, bathrooms, and beyond. Contact us for cost-effective and stunning home makeovers."

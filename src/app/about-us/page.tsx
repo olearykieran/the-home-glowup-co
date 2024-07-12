@@ -27,6 +27,20 @@ export default function AboutUs() {
     <>
       <Head>
         <title>About Us - The Home GlowUp Co.</title>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-16633623489"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-16633623489');
+          `,
+          }}
+        />
         <meta
           name="description"
           content="Learn about our mission and the team behind The Home GlowUp Co. We specialize in cost-effective home transformations, bringing elegance to every space."

@@ -7,6 +7,20 @@ export default function PrivacyPolicy() {
     <>
       <Head>
         <title>Privacy Policy - The Home GlowUp Co.</title>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-16633623489"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-16633623489');
+          `,
+          }}
+        />
         <meta
           name="description"
           content="This Privacy Policy explains how The Home GlowUp Co. collects, uses, and protects your personal information when you use our website."
