@@ -62,11 +62,11 @@ export default function Home() {
         <script
           dangerouslySetInnerHTML={{
             __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-16633623489');
-          `,
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-16633623489');
+            `,
           }}
         />
       </Head>
