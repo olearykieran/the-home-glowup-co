@@ -8,9 +8,9 @@ export default function ShoppingCart() {
   // const { cart, removeFromCart } = useCart();
   const [localCart, setLocalCart] = useState([]);
 
-  useEffect(() => {
-    setLocalCart(cart);
-  }, [cart]);
+  //useEffect(() => {
+  //  setLocalCart(cart);
+  // }, [cart]);
 
   return (
     <div>
