@@ -19,6 +19,7 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 // import { CartProvider, useCart } from "./shopping-cart/CartContext";
 import { db } from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
+import GoogleAnalytics from "./components/GoogleAnalytics";
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -209,6 +210,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           successMessage={successMessage}
         />
         <Footer />
+        <GoogleAnalytics />
       </body>
     </html>
     // </CartProvider>
